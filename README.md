@@ -4,15 +4,14 @@
 Audio visualization for JavaScript.
 Renders audio/visual data to a HTML `<canvas>`
 
+> DISCLAIMER: this library is a work in progress
 
-### Features
-- Oscilloscope
-- Fourier  (Bars)
-- VU meter
-- Sonogram
-- 3D sonogram
--  level meter
+Try the [live demo](https://instrumentbible.github.io/oscilloscope.js/).
 
+# Features
+- change colors
+- change thickness
+- change framerate
 
 ## Use
 

@@ -1,0 +1,27 @@
+{
+  "name": "oscilloscope.js",
+  "version": "1.0.0",
+  "description": "A JavaScript library to visualize audio.",
+  "author": {
+	"name": "Instrument Bible LLC",
+	"email": "contact@instrument.bible",
+	"url": "https://instrument.bible"
+  },
+  "license": "MIT",
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/instrumentbible/oscilloscope.js"
+  },
+  "bugs": {
+	"url": "https://github.com/instrumentbible/oscilloscope.js/issues"
+  },
+  "homepage": "https://github.com/instrumentbible/oscilloscope.js#readme",
+  "keywords": [
+	"music",
+	"visual",
+	"fourier",
+	"oscilloscope",
+	"acoustics",
+	"WebAudio"
+  ]
+}
