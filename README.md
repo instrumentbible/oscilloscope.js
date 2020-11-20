@@ -1,8 +1,6 @@
 # oscilloscope.js
 
-### What is it?
-Audio visualization for JavaScript.
-Renders audio/visual data to a HTML `<canvas>`
+Audio visualization for JavaScript. Render audio/visual data to a HTML `<canvas>`
 
 > DISCLAIMER: this library is a work in progress
 
@@ -16,104 +14,38 @@ Try the [live demo](https://instrumentbible.github.io/oscilloscope.js/).
 ## Use
 
 ```javascript
-var myOscilloscope = new Oscilloscope {}
-```
-
-Parameters
-```javascript
 var options = {
+	background: "pink"
 	color: "green",
 	thickness: 5,
-	input: oscillator,
 	framerate: 24,
-	fftSize: 1024,
-	maxDecibels: 100,
-	minDecibels: 2,
-	shadowColor: "black",
-	shadowOffsetX: 2,
-	shadowOffsetY: 2,
-	shadowBlur: 2,
-	fillStyle: "pink"
+	// input: oscillator,
+	// fftSize: 1024,
+	// maxDecibels: 100,
+	// minDecibels: 2,
+	// shadowColor: "black",
+	// shadowOffsetX: 2,
+	// shadowOffsetY: 2,
+	// shadowBlur: 2,
 }
+var myOscilloscope = new Oscilloscope(options)
+
 ```
 
 
-update [fftSize](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize)
-```javascript
-oscilloscope("fftSize", 2048);
-
-oscilloscope.color("#000000");
-oscilloscope.frameRate(60);
-```
-
-
-
-Connect via WebAudio
-```javascript
-// cross browser AudioContext setup
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
-
-// create an oscillator
-var oscillator = audioContext.createOscillator();
-oscillator.type = "sine";
-oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-oscillator.start();
-
-// plug it in
-// oscillator --> oscilloscope
-oscillator.connect(myOscilloscope);
-```
-
-
-```javascript
-// analyser (for audio visualization)
-var analyser = audioContext.createAnalyser();
-analyser.fftSize = 2048;
-analyser.smoothingTimeConstant = 0.5;
-analyser.maxDecibels = 0;
-analyser.minDecibels = -100;
-
-// frequency data (this is where the audio is analyzed)
-frequencyData = new Uint8Array(analyser.frequencyBinCount);
-```
-
-
-## Visualization Examples
-Oscilloscope
-```javascript
-// Oscilloscope
-function drawOsc() {
-
-	analyser.getByteTimeDomainData(frequencyData);
-
-	ctx.clearRect(0,0, cvs.width, cvs.height);
-	ctx.beginPath();
-	ctx.strokeStyle = "black";
-	ctx.lineWidth = 10;
-	
-	for (let i = 0; i < analyser.fftSize; i++) {
-		const x = i;
-		const y = frequencyData[i];
-		if (i === 0){ ctx.moveTo(x, y); } 
-		else  		{ ctx.lineTo(x, y); }
-	}
-	ctx.stroke();
-}
-```
-
+## other view modes to integrate
 
 Bars
 
 ```javascript
 // FFT Bars
-function drawBars() {
+function draw() {
 	var bufferLength = analyser.frequencyBinCount;
 	
 	analyser.getByteFrequencyData(frequencyData);
 	
 	ctx.clearRect(0,0, cvs.width, cvs.height);
-	const barWidth = (cvs.width / bufferLength) *  						15;
+	const barWidth = (cvs.width / bufferLength) * 15;
 	const barLowHz1 = (cvs.width / 300);
 	let posX = 0;
 	for (let i = 0; i < analyser1.fftSize; i++) {
@@ -128,8 +60,7 @@ function drawBars() {
 VU Meter
 ```javascript
 // VU Meter
-
-function drawVU() {
+function draw() {
 	analyser.getByteFrequencyData(frequencyData);
 	var values = 0;
 	var length = frequencyData.length;
@@ -151,7 +82,7 @@ Audio Level Meter
 > I would call it a "decibel" meter, but I am not certain it is accurately analyzing decibels.
 ```javascript
 // Audio Input Meter
-function drawInput() {
+function draw() {
 	analyser.getByteFrequencyData(frequencyData);
 	var values = 0;
 	var length = frequencyData.length;
@@ -166,10 +97,10 @@ Spectrogram
 
 ```javascript
 // Spectrogram 2D
-const W = cvs.width;// = window.innerWidth;
-const H = cvs.height;// = window.innerHeight;
+const W = cvs.width;
+const H = cvs.height;
 
-function loop() {
+function draw() {
 
 	// height window
 	// higher number = smaller window of frequencies
