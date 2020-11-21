@@ -2,127 +2,207 @@
 <html lang="en">
 <head>
 	
-    <title>oscilloscope.js</title>
+    <title>oscilloscope.js 📟</title>
 	<meta charset="utf-8" />
-	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/oscilloscope.css" />
 
 	
-	<!-- JavaScript -->
-    <script src="js/oscilloscope.js"></script>
 
 </head>
 <body>
 	<header>
-		<a class="button" href="https://github.com/instrumentbible/oscilloscope.js/#readme">GitHub</a>
-		<a class="button" href="https://github.com/instrumentbible/oscilloscope.js/wiki/#wiki-body">Docs</a>
-		<a  href="https://github.com/instrumentbible/oscilloscope.js#readme"><h1>oscilloscope.js</h1></a>
-		
-		<div>
-			<a class="button" onclick="audioSetup()">setup</a>
-			<a class="button" onclick="startOscillator()">start</a>
+		<div hidden>
+		<div class="button" href="https://github.com/instrumentbible/oscilloscope.js/#readme">GitHub</div>
+		<div class="button" href="https://github.com/instrumentbible/oscilloscope.js/wiki/#wiki-body">Docs</div>
 		</div>
 	</header>
+	<a  href="https://github.com/instrumentbible/oscilloscope.js#readme"><h1>oscilloscope.js</h1></a>
+	<hr>
+	
+	<div id="container">
+		<a class="button" id="initalize"><p><span style="font-size:100px">&#x23fb;</span><br><span>click to start</span> </p></a>
+	</div>
+	<div id="controls">
+	<hr>
+	<table>
+		<tr>
+			<td style="position:relative">
+				<input type="file"  id="audiofile" accept="audio/mp3,audio/mpeg,audio/x-aiff,audio/x-m4a,audio/m4a-latm,	audio/x-aiff,audio/x-wav,	audio/basic,	audio/m4a;capture=microphone" title="upload file 📂" />
+			</td>
+			<td colspan="2" style="position:relative">
+				<audio id="playerAudio" controls  ></audio>
+			</td>
+		</tr>
+		
+	</table>
+	
+	<hr>
+	<table>
+		<tr>
+			<td>
+				<button class="button" id="back" >⏪</button>
+			</td>
+			<td>
+				<button class="button" id="stop" >⏹</button>
+			</td>
+			<td>
+				<button class="button" id="play" >▶️</button>
+			</td>
+			<td>
+				<button class="button" id="asdf" >⏩</button>
+			</td>
+			
+			<td>
+				<button class="button" id="loop" >🔄</button>
+				<input type="checkbox" id="loopToggle" hidden></input>
+			</td>
+			<td>
+				<a href="" class="button" id="linkToDownld" download>💾</a>
+			</td>
+			<td>
+				<button class="button" id="start" >&#x23fb;</button>
+			</td>
+		</tr>
+		
+	</table>
+	
+	<hr>
+	
+	<table>
+		
+		<tr>
+			<td>
+				<label for="type">type</label><br>
+				<select id="type">
+					<option value="oscilloscope">oscilloscope</option>
+					<option value="bars"		>bars		 </option>
+					<option value="spectrogram" >spectrogram </option>
+					<option value="XY" >XY </option>
+
+				</select>
+
+			</td>
+			<td>
+				<label for="fftSize">fftSize</label><br>
+				<select id="fftSize">
+					<option value="32">32</option>
+					<option value="64">64</option>
+					<option value="128">128</option>
+					<option value="256">256</option>
+					<option value="512">512</option>
+					<option value="1024">1024</option>
+					<option value="2048" selected>2048</option>
+					<option value="4096">4096</option>
+					<option value="8192">8192</option>
+					<option value="16384">16384</option>
+					<option value="32768">32768</option>
+				</select>
+			</td>
+			
+		</tr>
+		
+	</table>
+	<table>
+		
+		
+		<tr>
+			<td>
+				<label for="framerate">frame rate</label><br>
+				<input type="number" id="framerate" value="24" min="1" max="120" inputmode="decimal" />
+				 
+			</td>
+			<td>
+				<label for="thickness">thickness</label><br>
+				<input type="number" id="thickness" value="5" min="0.1" max="20" step="0.1" inputmode="decimal" />
+				
+				
+			</td>
+			<td>
+				<label for="window">window</label><br>
+				<input type="number" id="window" value="2.0" min="1" max="10" step="0.1" inputmode="decimal" />
+
+
+			</td>
+			<td>
+				<label for="rate">rate</label><br>
+				<input type="number" id="rate" value="1.0" min="-2" max="5" step="0.01" inputmode="decimal" />
+
+
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<label for="minDecibels">minDecibels</label><br>
+				<input type="number" id="minDecibels" value="-100.0" min="-100.0" max="0.0" step="0.1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?"/>
+
+			</td>
+			<td>
+				<label for="maxDecibels">maxDecibels</label><br>
+				<input type="number" id="maxDecibels" value="-30.0" min="-100.0" max="0.0" step="0.1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?"/>
+
+				
+			</td>
+			<td>
+				<label for="smoothing">smoothing</label><br>
+				<input type="number" id="smoothing" value="0.8" min="0" max="0.99" step="0.01" inputmode="decimal"/>
+
+				
+			</td>
+			
+			<td>
+				<label for="fade">fade</label><br>
+				<input type="number" id="fade" value="1.0" min="0.01" max="1.0"  step="0.01" inputmode="decimal" />
+
+				
+			</td>
+		</tr>
+		
+		</table>
+
+	<hr>
+	<table>
+		
+		<tr>
+			<td>
+				<label for="color">color</label><br>
+				<input type="color" id="color" value="#39FF14"/>
+			</td>
+			<td>
+				<label for="background">background</label><br>
+				<input type="color" id="background" value="#303030"/>
+				
+			</td>
+			<td>
+				<label for="border">border</label><br>
+				<input type="color" id="border" value="#303030"/>
+				
+			</td>
+		</tr>
+		
+	</table>
+	
+	<hr>
 	
 	
-	<div id="staffDiv" class="staff"></div>
-	<div id="container"></div>
+	</div>
+	
+	<div class="cornerButtons">
+		<button class="button" id="" style="display:none">⚙️</button>
+		<button class="button" id="fullscreen" >↗️</button>
+		<button class="button" id="windowed" hidden >✖️</button>
+	</div>
+	
+	<!-- JavaScript -->
+	<script src="js/oscilloscope.js"></script>
+
+	<!-- example code -->
+	<script src="js/example.js"></script>
 
 	
-	<br/>
-
-	
-	<label for="framerate">framerate</label>
-	<input type="number" id="framerate" value="60" min="1" max="90"/>
-	
-	<br/>
-	
-	<label for="thickness">thickness</label>
-	<input type="number" id="thickness" value="5" min="1" max="30"/>
-	
-	<br/>
-	
-	
-	<label for="color">color</label>
-	<input type="color" id="color" value="#39FF14"/>
-	
-	<br/>
-	
-	<label for="background">background</label>
-	<input type="color" id="background" value="#222222"/>
-	
-	<br/>
-
-	<script>
-
-	var options = {
-		type: "oscilloscope",
-		thickness: 5,
-		id: "theOsc",
-		at: "container",
-		color: "#39FF14",
-		background: "#222222",
-
-	}
-
-	// create a new oscilloscope
-	var myOscilloscope = new Oscilloscope(options)
-
-	// set the frame rate
-	// myOscilloscope.setFrameRate(40);
-	
-	function audioSetup(){
-		// analyser (for audio visualization)
-		analyser = audioContext.createAnalyser();
-		analyser.fftSize = 2048;
-		analyser.smoothingTimeConstant = 0.5;
-		analyser.maxDecibels = 3;
-		analyser.minDecibels = 0;
-		frequencyData = new Uint8Array(analyser.frequencyBinCount);
-
-		// create an oscillator
-		var oscillator = audioContext.createOscillator();
-		oscillator.type = "sine";
-		oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-		oscillator.start();
-		oscillator.connect(analyser);
-		//oscillator.connect(audioContext.destination);
-
-		}
-		function startOscillator(){
-
-			myOscilloscope.draw(analyser);
-			myOscilloscope.setFramerate(60);
-
-		}
-
-	
-
-	// update framereate
-	document.getElementById('framerate').addEventListener('input',	function (e) {
-		myOscilloscope.setFramerate(this.value);
-	});
-	
-	
-	// update thickness
-	document.getElementById('thickness').addEventListener('input', function (e) {
-		myOscilloscope.setThickness(this.value);
-	});
-	
-	// update color
-	document.getElementById('color').addEventListener('input', function (e) {
-		myOscilloscope.setColor(this.value);
-	});
-	
-	// update background color
-	document.getElementById('background').addEventListener('input', function (e) {
-		myOscilloscope.setBackground(this.value);
-	});
-	
-	
-	</script>
-
 </body>
 
 </html>

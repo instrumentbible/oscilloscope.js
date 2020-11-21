@@ -7,6 +7,7 @@ Audio visualization for JavaScript. Render audio/visual data to a HTML `<canvas>
 Try the [live demo](https://instrumentbible.github.io/oscilloscope.js/).
 
 # Features
+- various audio/visual modes (oscilloscope, frequency bars, spectrogram, XY)
 - change colors
 - change thickness
 - change framerate
@@ -15,47 +16,20 @@ Try the [live demo](https://instrumentbible.github.io/oscilloscope.js/).
 
 ```javascript
 var options = {
-	background: "pink"
-	color: "green",
+	at: "container",
+	type: "oscilloscope",
 	thickness: 5,
-	framerate: 24,
-	// input: oscillator,
-	// fftSize: 1024,
-	// maxDecibels: 100,
-	// minDecibels: 2,
-	// shadowColor: "black",
-	// shadowOffsetX: 2,
-	// shadowOffsetY: 2,
-	// shadowBlur: 2,
-}
-var myOscilloscope = new Oscilloscope(options)
+	id: "theOsc",
+	color: "#39FF14",
+	background: "#303030",
+	fade: 1,
+	fftSize: 2048,
+};
+
+var myOscilloscope = new Oscilloscope(options);
 
 ```
 
-
-## other view modes to integrate
-
-Bars
-
-```javascript
-// FFT Bars
-function draw() {
-	var bufferLength = analyser.frequencyBinCount;
-	
-	analyser.getByteFrequencyData(frequencyData);
-	
-	ctx.clearRect(0,0, cvs.width, cvs.height);
-	const barWidth = (cvs.width / bufferLength) * 15;
-	const barLowHz1 = (cvs.width / 300);
-	let posX = 0;
-	for (let i = 0; i < analyser1.fftSize; i++) {
-	var hue = i/bufferLength * 360;
-	ctx.fillStyle = 'hsl(' + hue + ',100%, 50%)';
-	ctx.fillRect(posX, cvs.height - frequencyData[i] , barWidth, frequencyData[i]);
-	posX += barWidth - barLowHz1;
-	}
-}
-```
 
 VU Meter
 ```javascript
@@ -89,43 +63,5 @@ function draw() {
 	for (var i = 0; i < (length/4); i++) { values += (frequencyData[i]); }
 	var average = (values / length) / 2;
 	$("#audioInMeter").val(average);
-}
-```
-
-
-Spectrogram
-
-```javascript
-// Spectrogram 2D
-const W = cvs.width;
-const H = cvs.height;
-
-function draw() {
-
-	// height window
-	// higher number = smaller window of frequencies
-	var spectroHeight = 8; 
-	const LEN = frequencyData.length / spectroHeight;
-
-	// console.log(LEN)
-	const h = H / LEN;
-	const x = W - 1;
-	let imgData = ctx.getImageData(1, 0, x, H);
-	ctx.fillRect(0, 0, x, H);
-	ctx.putImageData(imgData, 0, 0);
-	analyser1.getByteFrequencyData(frequencyData);
-
-	for (let i = 0; i < LEN; i++) {
-		let rat = frequencyData[i] / 255;
-		let hue = Math.round(rat * 120 + 280 % 360);
-		let sat = '100%';
-		let lit = 10 + 70 * rat + '%';
-
-		ctx.beginPath();
-		ctx.strokeStyle = `hsl(${hue}, ${sat}, ${lit})`;
-		ctx.moveTo(x, H - i * h);
-		ctx.lineTo(x, H - (i * h + h));
-		ctx.stroke();
-	}
 }
 ```
