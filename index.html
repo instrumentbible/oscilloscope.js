@@ -8,9 +8,6 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/oscilloscope.css" />
-
-	
-
 </head>
 <body>
 	<header>
@@ -21,7 +18,6 @@
 	</header>
 	<a  href="https://github.com/instrumentbible/oscilloscope.js#readme"><h1>oscilloscope.js</h1></a>
 	<hr>
-	
 	<div id="container">
 		<a class="button" id="initalize"><p><span style="font-size:100px">&#x23fb;</span><br><span>click to start</span> </p></a>
 	</div>
@@ -36,9 +32,7 @@
 				<audio id="playerAudio" controls  ></audio>
 			</td>
 		</tr>
-		
 	</table>
-	
 	<hr>
 	<table>
 		<tr>
@@ -54,7 +48,6 @@
 			<td>
 				<button class="button" id="asdf" >⏩</button>
 			</td>
-			
 			<td>
 				<button class="button" id="loop" >🔄</button>
 				<input type="checkbox" id="loopToggle" hidden></input>
@@ -66,13 +59,9 @@
 				<button class="button" id="start" >&#x23fb;</button>
 			</td>
 		</tr>
-		
 	</table>
-	
 	<hr>
-	
 	<table>
-		
 		<tr>
 			<td>
 				<label for="type">type</label><br>
@@ -81,9 +70,7 @@
 					<option value="bars"		>bars		 </option>
 					<option value="spectrogram" >spectrogram </option>
 					<option value="XY" >XY </option>
-
 				</select>
-
 			</td>
 			<td>
 				<label for="fftSize">fftSize</label><br>
@@ -101,71 +88,48 @@
 					<option value="32768">32768</option>
 				</select>
 			</td>
-			
 		</tr>
-		
 	</table>
 	<table>
-		
-		
 		<tr>
 			<td>
 				<label for="framerate">frame rate</label><br>
 				<input type="number" id="framerate" value="24" min="1" max="120" inputmode="decimal" />
-				 
 			</td>
 			<td>
 				<label for="thickness">thickness</label><br>
 				<input type="number" id="thickness" value="5" min="0.1" max="20" step="0.1" inputmode="decimal" />
-				
-				
 			</td>
 			<td>
 				<label for="window">window</label><br>
 				<input type="number" id="window" value="2.0" min="1" max="10" step="0.1" inputmode="decimal" />
-
-
 			</td>
 			<td>
 				<label for="rate">rate</label><br>
 				<input type="number" id="rate" value="1.0" min="-2" max="5" step="0.01" inputmode="decimal" />
-
-
 			</td>
 		</tr>
-		
 		<tr>
 			<td>
 				<label for="minDecibels">minDecibels</label><br>
 				<input type="number" id="minDecibels" value="-100.0" min="-100.0" max="0.0" step="0.1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?"/>
-
 			</td>
 			<td>
 				<label for="maxDecibels">maxDecibels</label><br>
 				<input type="number" id="maxDecibels" value="-30.0" min="-100.0" max="0.0" step="0.1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?"/>
-
-				
 			</td>
 			<td>
 				<label for="smoothing">smoothing</label><br>
 				<input type="number" id="smoothing" value="0.8" min="0" max="0.99" step="0.01" inputmode="decimal"/>
-
-				
 			</td>
-			
 			<td>
 				<label for="fade">fade</label><br>
 				<input type="number" id="fade" value="1.0" min="0.01" max="1.0"  step="0.01" inputmode="decimal" />
-
-				
 			</td>
 		</tr>
-		
-		</table>
-
+	</table>
 	<hr>
 	<table>
-		
 		<tr>
 			<td>
 				<label for="color">color</label><br>
@@ -174,20 +138,15 @@
 			<td>
 				<label for="background">background</label><br>
 				<input type="color" id="background" value="#303030"/>
-				
 			</td>
 			<td>
 				<label for="border">border</label><br>
 				<input type="color" id="border" value="#303030"/>
-				
 			</td>
 		</tr>
-		
 	</table>
 	
 	<hr>
-	
-	
 	</div>
 	
 	<div class="cornerButtons">
@@ -198,11 +157,7 @@
 	
 	<!-- JavaScript -->
 	<script src="js/oscilloscope.js"></script>
-
-	<!-- example code -->
 	<script src="js/example.js"></script>
-
-	
 </body>
 
 </html>
