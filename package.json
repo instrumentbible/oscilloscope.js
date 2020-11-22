@@ -1,12 +1,12 @@
 {
-  "name": "oscilloscope.js",
+  "name": "@instrumentbible/oscilloscope.js",
   "version": "1.0.0",
   "description": "A JavaScript library to visualize audio.",
   "author": "Instrument Bible LLC <contact@instrument.bible> (https://instrument.bible)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/instrumentbible/oscilloscope.js.git"
+    "url": "git://github.com/instrumentbible/oscilloscope.js.git"
   },
   "bugs": {
     "url": "https://github.com/instrumentbible/oscilloscope.js/issues"
@@ -23,5 +23,8 @@
   "main": "\t",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+	"registry":"https://npm.pkg.github.com"
   }
 }
