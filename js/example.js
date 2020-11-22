@@ -17,7 +17,6 @@ var myOscilloscope = new Oscilloscope(options)
 
    // set the frame rate
    // myOscilloscope.setFrameRate(40);
-   
    function audioSetup(){ audioContext = new AudioContext();
 	//audioplyr.currentTime = 0
 	// analyser (for audio visualization)
@@ -50,7 +49,7 @@ var myOscilloscope = new Oscilloscope(options)
 	   //drawURL("https://upload.wikimedia.org/wikipedia/commons/c/c6/Canon_in_D_Major_%28ISRC_USUAN1100301%29.mp3");
 
 	   myOscilloscope.start();
-	    radioSrc = audioContext.createMediaElementSource(audioplyr);
+	radioSrc = audioContext.createMediaElementSource(audioplyr);
 	  radioSrc.connect(audioGain);
 	   
 	   splitter = audioContext.createChannelSplitter();
@@ -74,11 +73,7 @@ var myOscilloscope = new Oscilloscope(options)
 	   bufferLength = analyserL.fftSize;
 	   dataArrayL = new Float32Array(bufferLength);
 	   dataArrayR = new Float32Array(bufferLength);
-	   
-	   
 	}
-	  
-   
 
    // update framereate
    document.getElementById('framerate').addEventListener('input',	function (e) {
@@ -120,8 +115,6 @@ var myOscilloscope = new Oscilloscope(options)
 	myOscilloscope.setFade(this.value);
 	});
 		  
-
-
    // update color
    document.getElementById('color').addEventListener('input', function (e) {
 	   myOscilloscope.setColor(this.value);
@@ -137,17 +130,12 @@ var myOscilloscope = new Oscilloscope(options)
 		myOscilloscope.setBorder(this.value);
 	});
 
-
-
-// buttons
-
 // initalize
 document.getElementById('initalize').addEventListener('click', function (e) {
 	audioSetup();
 	this.style.display = 'none';
 	document.getElementById('controls').style.opacity = 1
 });
-
 
 // start
 document.getElementById('start').addEventListener('click', function (e) {
@@ -159,11 +147,7 @@ document.getElementById('stop').addEventListener('click', function (e) {
 	myOscilloscope.stop();
 });
    
-
 // to start
-
-
-// start
 document.getElementById('back').addEventListener('click', function (e) {
 	audioplyr.currentTime = 0
 });
@@ -180,26 +164,15 @@ document.getElementById('loop').addEventListener('click', function (e) {
 
 // type
 document.getElementById('loopToggle').addEventListener('change', function (e) {
-  // var newFFT = parseInt(this.value);
-	
 	if (this.checked){
-		console.log('ya')
 		audioplyr.loop = true;
 		document.getElementById('loop').innerHTML = "🔄";
-
 	}
 	else {
-		console.log('no')
 		audioplyr.loop = false;
 		document.getElementById('loop').innerHTML = "↩️";
-
 	}
 });
-
-// extra
-//document.getElementById('extra').addEventListener('click', function (e) {
-//	myOscilloscope.draw();
-// });
 
 // fullscreen
 document.getElementById('fullscreen').addEventListener('click', function (e) {
@@ -217,22 +190,16 @@ document.getElementById('fftSize').addEventListener('change', function (e) {
 	myOscilloscope.setFFTSize(newFFT);
 });
 
-
 // type
 document.getElementById('type').addEventListener('change', function (e) {
    myOscilloscope.setType(this.value);
 });
 
-
 // start
 document.getElementById('play').addEventListener('click', function (e) {
-	
-	console.log(audioplyr.paused)
-	
 	if(audioplyr.paused){
 		audioplyr.play();
 		this.innerHTML = "⏸";
-
 	}
 	else {
 		audioplyr.pause();
@@ -242,12 +209,9 @@ document.getElementById('play').addEventListener('click', function (e) {
 
 // update audio playback rate
 	document.getElementById('rate').addEventListener('input', function (e) {
-	//	var aw = parseFloat(this.value)
-
 		audioplyr.playbackRate = this.value;
 	});
 
-   
 function drawURL(url) {
 	audioIsDrawn = true;
 	var audioRequest = new XMLHttpRequest();
@@ -258,16 +222,12 @@ function drawURL(url) {
 			newSource = audioContext.createBufferSource();
 			newSource.buffer = buffer;
 			newSource.connect(audioGain);
-			
-			newSource.start()
-			//$("#audioProgress, #rangeTime, #loopstartControl, #loopendControl").attr("max", document.getElementById("playerAudio").duration);
-			//$("#loopendControl").val( document.getElementById("playerAudio").duration);
-			//var canvas = document.getElementById("viewWaveform");
-			//drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffer );
+			newSource.start();
 		});
 	}
 	audioRequest.send();
 }
+
 
 // allow scroll input on numbers
 document.addEventListener("wheel",function(e){
@@ -280,10 +240,5 @@ document.addEventListener("wheel",function(e){
 	if (e.deltaY < 0) { value += 0.01; if (max !== null && value > max) { value = parseFloat(max); } }
 	else 		      { value -= 0.01; if (min !== null && value < min) { value = parseFloat(min); } }
 	focusedEl.value = parseFloat(value);
-	 // console.log(focusedEl.value)
   }
 }, {passive: false});
-
-var aud = document.getElementById("playerAudio");
-aud.oncanplay = function() {};
-

@@ -27,9 +27,9 @@ class Oscilloscope {
 		this.window 		= options.window		|| 2.0;
 		this.fade 			= options.fade			|| 1;
 		this.smoothing 		= options.smoothing		|| 0.8;
-		this.type 			= options.type	 		||"bars";
-		this.playing 		= options.playing	 	||false;
-		this.fftSize 		= options.fftSize	 	||2048;
+		this.type 			= options.type	 		|| "oscilloscope";
+		this.playing 		= options.playing	 	|| false;
+		this.fftSize 		= options.fftSize	 	|| 2048;
 		this.direction 		= options.direction	 	||"forward";
 		//this.maxDecibels 		= options.maxDecibels	 	||0;
 		//this.minDecibels 		= options.minDecibels	 	||-100;
@@ -53,11 +53,7 @@ class Oscilloscope {
 		viewMode = this.type;
 		this.setType(this.type);
 	}
-	
-	
-	
-	
-	// draw canvas
+		// draw canvas
 	draw(e){
 		if (viewMode == "oscilloscope"){
 			bufferLength = analyser.fftSize;
@@ -145,7 +141,6 @@ class Oscilloscope {
 		   }
 																		
 																		
-			
 			// XY
 			if (viewMode == "XY"){
 				 size = Math.min(cvs.width, cvs.height)
@@ -375,10 +370,10 @@ function hexToRGB(hex, alpha) {
  audioplyr.addEventListener('loadeddata', (e) => { console.log(e) });
  audioplyr.addEventListener('loadedmetadata', (e) => { console.log(e) });
  audioplyr.addEventListener('timeupdate', (e) => { console.log(e) })
-*/ audioplyr.addEventListener('play', (e) => {document.getElementById('play').innerHTML ="⏸";});
+*/
+audioplyr.addEventListener('play', (e) => {document.getElementById('play').innerHTML ="⏸";});
  audioplyr.addEventListener('pause', (e) => {document.getElementById('play').innerHTML ="▶️";})
 /* audioplyr.addEventListener('volumechange', (e) => {console.log(audioplyr.volume);})
  audioplyr.addEventListener('seeking', (e) => {console.log(audioplyr.currentTime);})
  audioplyr.addEventListener('seeked', (e) => {console.log(e);})
-
 	*/
