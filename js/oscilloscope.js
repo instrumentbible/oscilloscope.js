@@ -210,8 +210,6 @@ class Oscilloscope {
 	   else if (e == 'bars'){
 		   ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
 	   }
-						   
-						   
 	   else if (e == 'spectrogram'){
 			ctx.fillStyle = 'hsl(280, 100%, 10%)';
 			ctx.fillRect(0, 0, cvs.width, cvs.height);
@@ -370,16 +368,16 @@ function hexToRGB(hex, alpha) {
 
 
 // var audioElement = new Audio('car_horn.wav');
-/* audioplyr.addEventListener('loadeddata', (e) => {document.getElementById('audiofile').title = 'file loaded'});
- audioplyr.addEventListener('playing', (e) => {console.log(e)})
+ audioplyr.addEventListener('loadeddata', (e) => {document.getElementById('audiofile').title = 'file loaded'});
+						   /* audioplyr.addEventListener('playing', (e) => {console.log(e)})
  audioplyr.addEventListener('emptied', (e) => { console.log(e); });
  audioplyr.addEventListener('ended', (e) => { console.log(e); });
  audioplyr.addEventListener('loadeddata', (e) => { console.log(e) });
  audioplyr.addEventListener('loadedmetadata', (e) => { console.log(e) });
  audioplyr.addEventListener('timeupdate', (e) => { console.log(e) })
- audioplyr.addEventListener('play', (e) => {document.getElementById('play').innerHTML ="⏸";});
+*/ audioplyr.addEventListener('play', (e) => {document.getElementById('play').innerHTML ="⏸";});
  audioplyr.addEventListener('pause', (e) => {document.getElementById('play').innerHTML ="▶️";})
- audioplyr.addEventListener('volumechange', (e) => {console.log(audioplyr.volume);})
+/* audioplyr.addEventListener('volumechange', (e) => {console.log(audioplyr.volume);})
  audioplyr.addEventListener('seeking', (e) => {console.log(audioplyr.currentTime);})
  audioplyr.addEventListener('seeked', (e) => {console.log(e);})
 
