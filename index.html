@@ -22,49 +22,10 @@
 		<a class="button" id="initalize"><p><span style="font-size:100px">&#x23fb;</span><br><span>click to start</span> </p></a>
 	</div>
 	<div id="controls">
-	<hr>
-	<table>
+	<hr>	<table style="table-layout:fixed">
+
 		<tr>
-			<td style="position:relative">
-				<input type="file"  id="audiofile" accept="audio/mp3,audio/mpeg,audio/x-aiff,audio/x-m4a,audio/m4a-latm,	audio/x-aiff,audio/x-wav,	audio/basic,	audio/m4a;capture=microphone" title="upload file 📂" />
-			</td>
-			<td colspan="2" style="position:relative">
-				<audio id="playerAudio" controls  ></audio>
-			</td>
-		</tr>
-	</table>
-	<hr>
-	<table>
-		<tr>
-			<td>
-				<button class="button" id="back" >⏪</button>
-			</td>
-			<td>
-				<button class="button" id="stop" >⏹</button>
-			</td>
-			<td>
-				<button class="button" id="play" >▶️</button>
-			</td>
-			<td>
-				<button class="button" id="asdf" >⏩</button>
-			</td>
-			<td>
-				<button class="button" id="loop" >🔄</button>
-				<input type="checkbox" id="loopToggle" hidden></input>
-			</td>
-			<td>
-				<a href="" class="button" id="linkToDownld" download>💾</a>
-			</td>
-			<td>
-				<button class="button" id="start" >&#x23fb;</button>
-			</td>
-		</tr>
-	</table>
-	<hr>
-	<table>
-		<tr>
-			<td>
-				<label for="type">type</label><br>
+			<td colspan=2>
 				<select id="type">
 					<option value="oscilloscope">oscilloscope</option>
 					<option value="bars"		>bars		 </option>
@@ -73,7 +34,6 @@
 				</select>
 			</td>
 			<td>
-				<label for="fftSize">fftSize</label><br>
 				<select id="fftSize">
 					<option value="32">32</option>
 					<option value="64">64</option>
@@ -88,8 +48,48 @@
 					<option value="32768">32768</option>
 				</select>
 			</td>
+			<td>
+				<button class="button" id="freeze" >freeze</button>
+			</td>
+			<td>
+				<button class="button" id="resume" >resume</button>
+			</td>
 		</tr>
 	</table>
+	<table>
+		<tr>
+			<td colspan="3" >
+				<audio id="playerAudio" controls  src="http://api.soundcloud.com/tracks/148976759/stream?client_id=201b55a1a16e7c0a122d112590b32e4a" crossorgin="anonymous"></audio>
+			</td>
+			<td >
+				<input type="file"  id="audiofile" accept="audio/mp3,audio/mpeg,audio/x-aiff,audio/x-m4a,audio/m4a-latm,	audio/x-aiff,audio/x-wav,	audio/basic,	audio/m4a;capture=microphone" title="upload file 📂" />
+			</td>
+			<td >
+				<label for="framerate">bars</label><br>
+				<input type="number" id="bars" value="5" min="1" max="12" step="1" />
+			</td>
+		</tr>
+	</table>
+	<hr>
+	<table>
+		<tr>
+			<td>
+				<button class="button" id="back" >rewind</button>
+			</td>
+			<td>
+				<button class="button" id="play" >play</button>
+			</td>
+			<td>
+				<button class="button" id="loop" >loop off</button>
+				<input type="checkbox" id="loopToggle" hidden></input>
+			</td>
+			<td>
+				<a class="button" id="linkToDownld" download>save</a>
+			</td>
+		</tr>
+	</table>
+	<hr>
+	
 	<table>
 		<tr>
 			<td>
@@ -145,7 +145,6 @@
 			</td>
 		</tr>
 	</table>
-	
 	<hr>
 	</div>
 	
@@ -159,5 +158,4 @@
 	<script src="js/oscilloscope.js"></script>
 	<script src="js/example.js"></script>
 </body>
-
 </html>

@@ -11,8 +11,9 @@ var ctx;
 var theWindow;
 var viewMode;
 var thisOsc;
-var bufferLength;var radioSrc
-// oscilloscope.js
+var bufferLength;
+var radioSrc;
+var numberOfBars = 8;
 class Oscilloscope {
 	
 	constructor(options) {
@@ -58,7 +59,6 @@ class Oscilloscope {
 		if (viewMode == "oscilloscope"){
 			bufferLength = analyser.fftSize;
 			var dataArray = new Float32Array(bufferLength);
-
 			// only get new frequencyData if playing
 			// this allows us to change the color while paused
 			if(thisOsc.playing){
@@ -67,13 +67,15 @@ class Oscilloscope {
 				
 			//ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
 			ctx.fillRect(0,0, cvs.width, cvs.height);
+			
+			drawBars();
 			ctx.beginPath();
 			
 			var sliceWidth = cvs.width * theWindow / bufferLength;
 			var x = 0;
 
 			for (let i = 0; i < bufferLength; i++) {
-				var v = dataArray[i] * 200;
+				var v = dataArray[i] * 300;
 				var y =  cvs.height/2 + v;
 				if(i === 0) { ctx.moveTo(x, y); }
 				else		{ ctx.lineTo(x, y); }
@@ -86,17 +88,22 @@ class Oscilloscope {
 		
 		// bars
 		if (viewMode == "bars"){
+			
+			//ctx.strokeStyle = "black";
 			// frequencyBinCount is half of FFT size
 			bufferLength = analyser.frequencyBinCount;
 			var dataArray = new Float32Array(bufferLength);
 			analyser.getFloatFrequencyData(dataArray);
+			
+			
 			ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
 			ctx.fillRect(0,0, cvs.width, cvs.height);
+			drawBars();
 			var barWidth = (cvs.width / bufferLength) * (Math.max(thisOsc.thickness, 1));
 			var barHeight;
 			let posX = 0;
 			for (let i = 0; i < bufferLength; i++) {
-				barHeight = (dataArray[i] + 140)* 7;
+				barHeight = (dataArray[i] + 140)* 16;
 				//ctx.fillStyle = 'rgb(' + 57 + ','+ (barHeight+100) +',20)';
 				ctx.fillStyle = thisOsc.color;
 
@@ -117,7 +124,6 @@ class Oscilloscope {
 				} else {
 					let imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
 					ctx.putImageData(imgData, (-1 * speed), 0);
-					
 				}
 				analyser.getByteFrequencyData(dataArray);
 
@@ -157,12 +163,11 @@ class Oscilloscope {
 	}
 	
 	
-	// set input
-	// setInput(e) {
-	//	this.input = e;
-	//	this.input.connect(audioContext.destination)
-	// }
-	
+	// set bars
+	setBars(e){
+		this.bars = e;
+		numberOfBars = e;
+	}
 	// set framerate
 	setFramerate(e){
 		this.framerate = e;
@@ -211,7 +216,7 @@ class Oscilloscope {
 		}
 	   else  if (e == 'XY'){
 			ctx.strokeStyle = this.color;
-			 ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
+			ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
 	   }
 	}
 	
@@ -225,7 +230,9 @@ class Oscilloscope {
 	}
 	
 	// get thickness
-	getThickness(e) { return this.thickness;	}
+	getThickness(e) {
+		return this.thickness;
+	}
 	
 	// set fftSize
 	setFFTSize(e) {
@@ -236,7 +243,6 @@ class Oscilloscope {
 	// get fftSize
 	getFFTSize(e) { return this.fftSize; }
 	
-	
 	// set border color
 	setBorder(e) {
 		document.querySelector('#'+this.id).style.borderColor = e;
@@ -246,19 +252,19 @@ class Oscilloscope {
 	setFade(e) {
 		this.fade = e;
 	   ctx.fillStyle = hexToRGB(thisOsc.background, thisOsc.fade);
-
 	}
 	
 	// set direction
 	setDirection(e) {
 		this.direction = e;
 	}
+																		
 	// set window
 	setWindow(e) {
 		this.window = e;
 		theWindow = this.window
 	}
-	
+
 	// set smoothing
 	setSmoothing(e) {
 		this.smoothing = parseFloat(e);
@@ -277,13 +283,13 @@ class Oscilloscope {
 		analyser.maxDecibels = e;
 	}
 	
-	// start
-	start() {
+	// resume
+	resume() {
 		this.setFramerate(this.framerate);
 		this.playing = true;
 	}
 	
-	stop() {
+	freeze() {
 		clearInterval(clock);
 		this.playing = false;
 	}
@@ -342,7 +348,7 @@ function hexToRGB(hex, alpha) {
 		var target = e.currentTarget;
 		var file = target.files[0];
 		var reader = new FileReader();
-		console.log(audioplyr[0]);
+		//console.log(audioplyr[0]);
 		if (target.files && file) {
 		var reader = new FileReader();
 		reader.onload = function (e) { audioplyr.setAttribute('src', e.target.result);  /*audioplyr.play(); */}
@@ -353,7 +359,6 @@ function hexToRGB(hex, alpha) {
 		var blob = new Blob([file]);
 	   
 	   myurl  = URL.createObjectURL(blob);
-	
 	   document.getElementById('linkToDownld').download = filename;
 	   document.getElementById('linkToDownld').href = myurl;
 
@@ -361,19 +366,29 @@ function hexToRGB(hex, alpha) {
 });
 			
 
-
-// var audioElement = new Audio('car_horn.wav');
- audioplyr.addEventListener('loadeddata', (e) => {document.getElementById('audiofile').title = 'file loaded'});
-						   /* audioplyr.addEventListener('playing', (e) => {console.log(e)})
+// listen to audio player events
+audioplyr.addEventListener('loadeddata', (e) => {document.getElementById('audiofile').title = 'file loaded'});
+audioplyr.addEventListener('play',  (e) => { document.getElementById('play').innerHTML ="pause"; });
+audioplyr.addEventListener('pause', (e) => { document.getElementById('play').innerHTML ="play"; })
+/*
+ audioplyr.addEventListener('playing', (e) => {console.log(e)})
  audioplyr.addEventListener('emptied', (e) => { console.log(e); });
  audioplyr.addEventListener('ended', (e) => { console.log(e); });
  audioplyr.addEventListener('loadeddata', (e) => { console.log(e) });
  audioplyr.addEventListener('loadedmetadata', (e) => { console.log(e) });
  audioplyr.addEventListener('timeupdate', (e) => { console.log(e) })
-*/
-audioplyr.addEventListener('play', (e) => {document.getElementById('play').innerHTML ="⏸";});
- audioplyr.addEventListener('pause', (e) => {document.getElementById('play').innerHTML ="▶️";})
-/* audioplyr.addEventListener('volumechange', (e) => {console.log(audioplyr.volume);})
+ audioplyr.addEventListener('volumechange', (e) => {console.log(audioplyr.volume);})
  audioplyr.addEventListener('seeking', (e) => {console.log(audioplyr.currentTime);})
  audioplyr.addEventListener('seeked', (e) => {console.log(e);})
-	*/
+*/
+
+
+function drawBars(){
+	 var s = cvs.width/numberOfBars;
+	ctx.beginPath();
+	for (let step = 0; step < (numberOfBars + 1); step++) {
+	ctx.moveTo((s*step),0);
+	ctx.lineTo((s*step),cvs.height);
+	}
+	ctx.stroke();
+}

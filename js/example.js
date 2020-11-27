@@ -48,7 +48,7 @@ var myOscilloscope = new Oscilloscope(options)
 	   //drawURL("https://upload.wikimedia.org/wikipedia/commons/d/d6/Danse_Macabre_-_Light_Dance_%28ISRC_USUAN1100553%29.mp3");
 	   //drawURL("https://upload.wikimedia.org/wikipedia/commons/c/c6/Canon_in_D_Major_%28ISRC_USUAN1100301%29.mp3");
 
-	   myOscilloscope.start();
+	   myOscilloscope.resume();
 	radioSrc = audioContext.createMediaElementSource(audioplyr);
 	  radioSrc.connect(audioGain);
 	   
@@ -129,6 +129,10 @@ var myOscilloscope = new Oscilloscope(options)
 	document.getElementById('border').addEventListener('input', function (e) {
 		myOscilloscope.setBorder(this.value);
 	});
+	// set number of bars
+	document.getElementById('bars').addEventListener('input', function (e) {
+		myOscilloscope.setBars(this.value);
+	});
 
 // initalize
 document.getElementById('initalize').addEventListener('click', function (e) {
@@ -138,13 +142,13 @@ document.getElementById('initalize').addEventListener('click', function (e) {
 });
 
 // start
-document.getElementById('start').addEventListener('click', function (e) {
-	myOscilloscope.start();
+document.getElementById('resume').addEventListener('click', function (e) {
+	myOscilloscope.resume();
 });
 
-// stop
-document.getElementById('stop').addEventListener('click', function (e) {
-	myOscilloscope.stop();
+// freeze
+document.getElementById('freeze').addEventListener('click', function (e) {
+	myOscilloscope.freeze();
 });
    
 // to start
@@ -166,11 +170,11 @@ document.getElementById('loop').addEventListener('click', function (e) {
 document.getElementById('loopToggle').addEventListener('change', function (e) {
 	if (this.checked){
 		audioplyr.loop = true;
-		document.getElementById('loop').innerHTML = "🔄";
+		document.getElementById('loop').innerHTML = "loop on";
 	}
 	else {
 		audioplyr.loop = false;
-		document.getElementById('loop').innerHTML = "↩️";
+		document.getElementById('loop').innerHTML = "loop off";
 	}
 });
 
@@ -199,11 +203,11 @@ document.getElementById('type').addEventListener('change', function (e) {
 document.getElementById('play').addEventListener('click', function (e) {
 	if(audioplyr.paused){
 		audioplyr.play();
-		this.innerHTML = "⏸";
+		this.innerHTML = "pause";
 	}
 	else {
 		audioplyr.pause();
-		this.innerHTML = "▶️";
+		this.innerHTML = "play";
 	}
 });
 
