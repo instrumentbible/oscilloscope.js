@@ -2,8 +2,6 @@
 
 Audio visualization for JavaScript. Render audio/visual data to a HTML `<canvas>`
 
-> DISCLAIMER: this library is a work in progress
-
 Try the [live demo](https://instrumentbible.github.io/oscilloscope.js/).
 
 # Features
