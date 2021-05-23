@@ -1,4 +1,6 @@
-# oscilloscope.js
+# oscilloscope.js 📟
+
+![Oscilloscope.js](https://joshstovall.com/img/oscilloscope.gif)
 
 Audio visualization for JavaScript. Render audio/visual data to a HTML `<canvas>`
 
